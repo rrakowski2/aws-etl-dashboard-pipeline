@@ -1,0 +1,60 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Deploy Python CloudFormation Stack to AWS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials using federated role
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.ROLE_ARN }}
+          aws-region: eu-west-1
+
+      - name: List S3 buckets to test credentials
+        run: aws s3 ls
+
+      - name: Deploy
+        run: |
+          #!/bin/bash
+
+          # Print the current working directory
+          echo "Current working directory"
+          pwd
+
+          # List directories
+          echo "Listing directories"
+          ls -l
+
+          # Navigate to the script directory
+          cd cafesquad-data-bucket/src/
+    
+          # Package the python script into a zip file
+          zip -r package.zip lambda_function.py
+
+          # Move the zip file to the root directory
+          mv package.zip ../../../
+
+          # Navigate back to the root directory
+          cd ../../../
+
+          # Print the current working directory
+          pwd
+
+          # List files to confirm zip creation
+          ls -l
+
+          # Update the Lambda function code
+          aws lambda update-function-code --function-name cafesquad-data --zip-file fileb://package.zip
