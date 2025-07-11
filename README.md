@@ -1,4 +1,10 @@
-## The repo showcases an analytics dashboard solution hosted on AWS, featuring an ETL pipeline and CI/CD implementation with GitHub Actions. It is designed to help decision makers at a chain of café restaurants identify sales trends. All personal data is fictitious and was created solely for development purposes.
+## Repository Overview
 
-## The src folder contains the development version of the application, which is executed locally in Docker, while the two cafesquad-named folders store the source code and packages deployed to AWS using native AWS Lambda functions to speed up data loading into the Redshift database.
+This project features an analytics dashboard solution hosted on AWS, designed to help decision-makers at a café restaurant chain identify sales trends. The implementation includes an ETL pipeline and a CI/CD workflow powered by GitHub Actions.
 
+> ⚠️ **Note:** All personal data used within the project is entirely fictitious and intended solely for development purposes.
+
+## Project Structure
+
+- **`src/` folder** — contains the development version of the application, executed locally using Docker.
+- **`cafesquad-*` folders** — store source code and packages deployed to AWS, utilizing native AWS Lambda functions to accelerate data loading into the Redshift database.
